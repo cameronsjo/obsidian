@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "obsidian-dev",
+  "description": "Obsidian plugin development toolkit for Claude Code - scaffolding, TypeScript patterns, GitHub Actions",
+  "owner": {
+    "name": "Cameron Sjo",
+    "github": "cameronsjo"
+  },
+  "plugins": [
+    {
+      "name": "obsidian-dev",
+      "source": "./.claude-plugin",
+      "description": "Complete toolkit for Obsidian plugin development: scaffolding, TypeScript patterns, GitHub Actions, Release Please, BRAT integration",
+      "version": "1.2.0"
+    }
+  ]
+}
