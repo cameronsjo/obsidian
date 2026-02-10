@@ -1,12 +1,15 @@
 {
-  "name": "obsidian-dev",
-  "description": "Complete toolkit for Obsidian plugin development: scaffolding, TypeScript patterns, GitHub Actions, Release Please, BRAT integration",
+  "name": "obsidian",
+  "description": "Obsidian toolkit: vault management, markdown reference, Bases, plugin development, and plugin patterns",
   "version": "1.2.0",
   "author": {
-    "name": "https://github.com/cameronsjo"
+    "name": "cameronsjo"
   },
   "keywords": [
     "obsidian",
+    "vault",
+    "markdown",
+    "bases",
     "plugin",
     "typescript",
     "esbuild",
