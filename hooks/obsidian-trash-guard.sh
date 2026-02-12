@@ -4,79 +4,46 @@
 #
 # Obsidian's .trash/ is its built-in recycle bin. Files deleted inside
 # Obsidian go there — rm bypasses that and permanently destroys them.
+#
+# Requires OBSIDIAN_VAULT env var for the fast path. Falls back to
+# walking up directories looking for .obsidian/ if unset.
 
 set -euo pipefail
 
 INPUT=$(cat)
 COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""')
 
-# Only intercept commands containing rm
-if ! echo "$COMMAND" | grep -qE '\brm\b'; then
-  exit 0
-fi
+# --- Gate: should this hook even run? ---
+echo "$COMMAND" | grep -qE '\brm\b' || exit 0
 
 CWD=$(echo "$INPUT" | jq -r '.cwd // "/"')
+PATHS=$(echo "$COMMAND" | grep -oE '/[^ "]+' 2>/dev/null || true)
 
-# Fast path: if OBSIDIAN_VAULT is set, check paths against it directly
-# before falling back to the directory walk.
-check_under_vault() {
-  local path="$1"
-  local vault="$2"
-  [[ "$path" == "$vault"* ]]
-}
+# --- Detect vault: easy mode (env var) or hard mode (dir walk) ---
+VAULT_ROOT=""
 
-if [[ -n "${OBSIDIAN_VAULT:-}" && -d "$OBSIDIAN_VAULT" ]]; then
-  VAULT_ROOT=""
-
-  # Check CWD
-  if check_under_vault "$CWD" "$OBSIDIAN_VAULT"; then
-    VAULT_ROOT="$OBSIDIAN_VAULT"
-  fi
-
-  # Check absolute paths in the command
-  if [[ -z "$VAULT_ROOT" ]]; then
-    while IFS= read -r candidate; do
-      if check_under_vault "$candidate" "$OBSIDIAN_VAULT"; then
-        VAULT_ROOT="$OBSIDIAN_VAULT"
-        break
-      fi
-    done < <(echo "$COMMAND" | grep -oE '/[^ "]+' 2>/dev/null || true)
-  fi
+if [[ -n "${OBSIDIAN_VAULT:-}" ]]; then
+  # Easy: prefix match against known vault path
+  for p in "$CWD" $PATHS; do
+    [[ "$p" == "$OBSIDIAN_VAULT"* ]] && VAULT_ROOT="$OBSIDIAN_VAULT" && break
+  done
 else
-  # Fallback: walk up from a directory looking for .obsidian/ (vault marker)
-  find_vault_root() {
-    local dir="$1"
+  # Hard: walk up looking for .obsidian/
+  for p in "$CWD" $PATHS; do
+    dir=$(dirname "$p" 2>/dev/null) || continue
     while [[ "$dir" != "/" ]]; do
       if [[ -d "$dir/.obsidian" ]]; then
-        echo "$dir"
-        return 0
+        VAULT_ROOT="$dir"
+        break 2
       fi
       dir=$(dirname "$dir")
     done
-    return 1
-  }
-
-  # Check if CWD is inside a vault
-  VAULT_ROOT=$(find_vault_root "$CWD" 2>/dev/null) || VAULT_ROOT=""
-
-  # If CWD isn't in a vault, check absolute paths in the command
-  if [[ -z "$VAULT_ROOT" ]]; then
-    while IFS= read -r candidate; do
-      dir=$(dirname "$candidate" 2>/dev/null) || continue
-      VAULT_ROOT=$(find_vault_root "$dir" 2>/dev/null) || continue
-      if [[ -n "$VAULT_ROOT" ]]; then
-        break
-      fi
-    done < <(echo "$COMMAND" | grep -oE '/[^ "]+' 2>/dev/null || true)
-  fi
+  done
 fi
 
-# Not in a vault — approve
-if [[ -z "$VAULT_ROOT" ]]; then
-  exit 0
-fi
+[[ -z "$VAULT_ROOT" ]] && exit 0
 
-# In a vault — block the rm and instruct to use .trash/
+# --- Block and redirect to .trash/ ---
 TRASH_DIR="$VAULT_ROOT/.trash"
 cat << EOF
 {
@@ -84,4 +51,3 @@ cat << EOF
   "reason": "Obsidian vault detected. Do not use rm to delete vault files.\n\n.trash/ is Obsidian's built-in recycle bin. Move files there instead:\n  mkdir -p $TRASH_DIR && mv <file> $TRASH_DIR/\n\nThis preserves recoverability within Obsidian."
 }
 EOF
-exit 0
