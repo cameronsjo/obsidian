@@ -609,6 +609,10 @@ Internal notes:
 %%
 ````
 
+## Obsidian Internals
+
+The `.trash/` folder at the vault root is **Obsidian's built-in recycle bin** — not leftover junk. When you delete a note inside Obsidian, it moves there instead of permanently deleting. Do not treat `.trash/` contents as garbage or import artifacts. Obsidian manages this folder.
+
 ## References
 
 - [Basic formatting syntax](https://help.obsidian.md/syntax)
