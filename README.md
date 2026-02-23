@@ -1,24 +1,34 @@
-# Obsidian Dev
+# Obsidian
 
-Claude Code plugin for Obsidian plugin development — scaffolding, TypeScript patterns, GitHub Actions, Release Please, BRAT integration.
-
-## Installation
-
-```bash
-/plugin marketplace add cameronsjo/obsidian-dev
-/plugin install obsidian-dev@obsidian-dev
-```
+Obsidian toolkit — vault management, markdown reference, Bases, plugin development, and release automation.
 
 ## Commands
 
-| Command | What it does |
-|---|---|
-| `/obsidian.init` | Scaffold a new Obsidian plugin |
-| `/obsidian.release` | Ship it (beta/RC/stable) |
+| Command | Description |
+|---------|-------------|
+| `/obsidian:init` | Scaffold a new Obsidian plugin project with modern tooling |
+| `/obsidian:release` | Ship an Obsidian plugin release (beta, RC, or stable) |
 
-## Agent
+## Skills
 
-`obsidian-plugin-expert` — knows the Obsidian API so you don't have to.
+| Skill | Description |
+|-------|-------------|
+| `obsidian-plugin-patterns` | Modern Obsidian plugin patterns, API usage, and release automation |
+| `obsidian-markdown` | Obsidian Flavored Markdown — wikilinks, embeds, callouts, properties |
+| `obsidian-bases` | Obsidian Bases (`.base` files) — views, filters, formulas, summaries |
+
+## Agents
+
+| Agent | Description |
+|-------|-------------|
+| `obsidian-plugin-expert` | Proactive for Obsidian plugin development, TypeScript patterns, modal/settings UI, BRAT beta testing |
+
+## Install
+
+```bash
+claude plugin install obsidian@workbench
+claude plugin enable obsidian@workbench
+```
 
 ## License
 
