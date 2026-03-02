@@ -15,6 +15,5 @@
     "release-please",
     "brat",
     "github-actions"
-  ],
-  "version": "0.0.0"
+  ]
 }

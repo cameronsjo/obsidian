@@ -10,8 +10,7 @@
     {
       "name": "obsidian",
       "source": "./.claude-plugin",
-      "description": "Complete toolkit for Obsidian plugin development: scaffolding, TypeScript patterns, GitHub Actions, Release Please, BRAT integration",
-      "version": "1.2.0"
+      "description": "Complete toolkit for Obsidian plugin development: scaffolding, TypeScript patterns, GitHub Actions, Release Please, BRAT integration"
     }
   ]
 }
