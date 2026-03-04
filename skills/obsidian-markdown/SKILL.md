@@ -1,6 +1,14 @@
 ---
 name: obsidian-markdown
-description: Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes.
+description: >
+  Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts,
+  properties, and other Obsidian-specific syntax. Use when working with .md
+  files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter,
+  tags, embeds, or Obsidian notes.
+license: MIT
+metadata:
+  author: cameronsjo
+  version: "1.0"
 ---
 
 # Obsidian Flavored Markdown Skill
@@ -240,44 +248,6 @@ tag:#project status:done
 }
 ```
 
-## Lists
-
-### Unordered Lists
-
-```markdown
-- Item 1
-- Item 2
-  - Nested item
-  - Another nested
-- Item 3
-
-* Also works with asterisks
-+ Or plus signs
-```
-
-### Ordered Lists
-
-```markdown
-1. First item
-2. Second item
-   1. Nested numbered
-   2. Another nested
-3. Third item
-
-1) Alternative syntax
-2) With parentheses
-```
-
-### Task Lists
-
-```markdown
-- [ ] Incomplete task
-- [x] Completed task
-- [ ] Task with sub-tasks
-  - [ ] Subtask 1
-  - [x] Subtask 2
-```
-
 ## Quotes
 
 ```markdown
@@ -288,49 +258,6 @@ tag:#project status:done
 >
 > > Nested quotes work too.
 ```
-
-## Code
-
-### Inline Code
-
-```markdown
-Use `backticks` for inline code.
-Use double backticks for ``code with a ` backtick inside``.
-```
-
-### Code Blocks
-
-````markdown
-```
-Plain code block
-```
-
-```javascript
-// Syntax highlighted code block
-function hello() {
-  console.log("Hello, world!");
-}
-```
-
-```python
-# Python example
-def greet(name):
-    print(f"Hello, {name}!")
-```
-````
-
-### Nesting Code Blocks
-
-Use more backticks or tildes for the outer block:
-
-`````markdown
-````markdown
-Here's how to create a code block:
-```js
-console.log("Hello")
-```
-````
-`````
 
 ## Tables
 
@@ -389,41 +316,6 @@ $\int_a^b$         Integral
 $\alpha, \beta$    Greek letters
 ```
 
-## Diagrams (Mermaid)
-
-````markdown
-```mermaid
-graph TD
-    A[Start] --> B{Decision}
-    B -->|Yes| C[Do this]
-    B -->|No| D[Do that]
-    C --> E[End]
-    D --> E
-```
-````
-
-### Sequence Diagrams
-
-````markdown
-```mermaid
-sequenceDiagram
-    Alice->>Bob: Hello Bob
-    Bob-->>Alice: Hi Alice
-```
-````
-
-### Linking in Diagrams
-
-````markdown
-```mermaid
-graph TD
-    A[Biology]
-    B[Chemistry]
-    A --> B
-    class A,B internal-link;
-```
-````
-
 ## Footnotes
 
 ```markdown
@@ -458,47 +350,6 @@ ___
 - - -
 * * *
 ```
-
-## Properties (Frontmatter)
-
-Properties use YAML frontmatter at the start of a note:
-
-```yaml
----
-title: My Note Title
-date: 2024-01-15
-tags:
-  - project
-  - important
-aliases:
-  - My Note
-  - Alternative Name
-cssclasses:
-  - custom-class
-status: in-progress
-rating: 4.5
-completed: false
-due: 2024-02-01T14:30:00
----
-```
-
-### Property Types
-
-| Type | Example |
-|------|---------|
-| Text | `title: My Title` |
-| Number | `rating: 4.5` |
-| Checkbox | `completed: true` |
-| Date | `date: 2024-01-15` |
-| Date & Time | `due: 2024-01-15T14:30:00` |
-| List | `tags: [one, two]` or YAML list |
-| Links | `related: "[[Other Note]]"` |
-
-### Default Properties
-
-- `tags` - Note tags
-- `aliases` - Alternative names for the note
-- `cssclasses` - CSS classes applied to the note
 
 ## Tags
 
@@ -622,3 +473,11 @@ The `.trash/` folder at the vault root is **Obsidian's built-in recycle bin** â€
 - [Embed files](https://help.obsidian.md/embeds)
 - [Callouts](https://help.obsidian.md/callouts)
 - [Properties](https://help.obsidian.md/properties)
+
+
+## References
+
+- [Lists](references/lists.md)
+- [Code](references/code.md)
+- [Diagrams (Mermaid)](references/diagrams-mermaid.md)
+- [Properties (Frontmatter)](references/properties-frontmatter.md)

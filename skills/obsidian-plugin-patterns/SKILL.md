@@ -1,6 +1,10 @@
 ---
 name: obsidian-plugin-patterns
 description: Modern Obsidian plugin patterns, API usage, and release automation. Triggers on Obsidian plugin development, manifest.json, esbuild, BRAT, or Release Please.
+license: MIT
+metadata:
+  author: cameronsjo
+  version: "1.0"
 ---
 
 # Obsidian Plugin Patterns
