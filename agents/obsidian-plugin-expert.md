@@ -1,7 +1,8 @@
 ---
 name: obsidian-plugin-expert
 description: Use PROACTIVELY for Obsidian plugin development, TypeScript patterns, modal/settings UI, release automation, and BRAT beta testing
-tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
+tools: Read, Edit, Write, Grep, Glob, Bash, WebSearch, WebFetch
+skills: obsidian-plugin-patterns
 memory: user
 model: sonnet
 ---
